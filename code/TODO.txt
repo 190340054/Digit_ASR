@@ -1,0 +1,5 @@
+read files - in the same path
+resample - 16khz - store in the same path , mono channel
+format the file name lower-uppercase
+labeling - generate text files for coresponidng .wav file
+labele files - lexicon, silent words (transcription)
