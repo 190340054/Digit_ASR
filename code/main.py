@@ -37,38 +37,47 @@ def get_total_M_speakers():
 
 # get_total_M_speakers()
 
+def format(string):
+    if string.isupper():
+        ans = string
+    else:
+        ans = string.upper()
+    return ans
+
 def resample():
+
     path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train/'
     os.mkdir('C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k')
     a = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k'
+
     flag = 0
+    count = 0
     for i in track(os.listdir(path)):
-        print("entering into 1st loop")
-        if flag==1:
+        print("inside first loop")
+        if flag == 1:
             break
         flag+=1
-        os.mkdir(f"{a}/{i}")
-        count = 0
         for j in os.listdir(f"{path}/{i}/"):
-            if count==1:
+            print("inside secound loop")
+            if count == 1:
                 break
+            count+=1
             audio_file = f"{path}/{i}/{j}"
+            print("extracted aduio file")
             samples, sample_rate = librosa.load(audio_file)
+            print("loaded audio file")
             samples = librosa.resample(samples, sample_rate, 16000)
-            destination_path = f"{a}/{i}/{j}"
-            file_name = os.path.basename(destination_path)
-            ans = os.path.splitext(file_name)[0]
-            for i in ans:
-                if 97<=ord(i)<=122:
-                    ans = ans.replace(i, chr(ord(i)-32))
-                    new_file_name = f"{a}/{i}/{ans}"
-                    f = open(new_file_name, 'x')
-                    sf.write(new_file_name, samples, 16000)
-                    # basename = os.path.basename(destination_path)
-                    count+=1
+            print("resampleing done")
+            file_name = format(f"{path}/{i}/{j}".split()[0])
+            print(f"{path}/{i}/{j}"[0])
+            print(f"{path}/{i}/{j}")
+            print("extracted file_name ----->", file_name)
+            ext = f"{path}/{i}/{j}"[1]
+            print("extracted file name extention ---->", ext)
+            file_name = file_name + ext
+            print("concatinatced ---->", file_name)
+            destination_path = f"{a}/{i}/{file_name}"
+            f = open(destination_path, "x")
+            sf.write(destination_path, samples, 16000)
 
-                f = open(destination_path, 'x')
-                sf.write(destination_path, samples, 16000)
-                # basename = os.path.basename(destination_path)
-                count+=1
 resample()
