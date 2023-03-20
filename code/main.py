@@ -202,3 +202,16 @@ def transcrption():
             f.write(f_r +   "          "+str(int(f_r)-15) + "          " +f_r+"          SIL")
 
 # transcrption()
+
+def get_time_duration():
+    path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k/'
+    lis = []
+    for i in track(os.listdir(path)):
+        for j in os.listdir(f"{path}{i}/"):
+            frame_rate = scipy.io.wavfile.read(f"{path}{i}/{j}")
+            time_duration = frame_rate[0]//16000
+            lis.append(time_duration)
+    print("max --->",max(lis))
+    print("min --->",min(lis))
+
+# get_time_duration()
