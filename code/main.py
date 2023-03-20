@@ -5,6 +5,7 @@ import soundfile as sf
 from rich.progress import track
 import eng_to_ipa as p
 from scipy.io import wavfile
+import scipy
 
 path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train'
 
@@ -113,17 +114,9 @@ def labeling():
                     ans = hash[val]
                     break
             f = open(l_destination_path, 'x')
-            # sp = "     "
-            f.write("start_time     end_time     sample_name")
-            f.write("\n")
-            f.write("0              500           SIL")
-            f.write("\n")
-            f.write("500            15000         "+ans)
-            f.write("\n")
-            f.write("15000          16000         SIL")
-            # f.write(ans)
+            f.write(ans)
 
-labeling()
+# labeling()
 
 def get_file_name(string):
     return string.split('.')[0]
@@ -168,3 +161,44 @@ def lexicon():
 # print(type(fs[0]))
 # print(type(str(fs[0])))
 # print(data)
+
+
+def transcrption():
+    hash = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k/'
+    os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/transcrption")
+    # flag = 0
+    for i in track(os.listdir(path)):
+        # print("inside first loop")
+        # if flag == 1:
+        #     break
+        # flag+=1
+        # count = 0
+        os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/transcrption/{i}")
+        a = f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/transcrption"
+        for j in os.listdir(f"{path}{i}/"):
+            # print("inside secound loop")
+            # if count == 1:
+            #     break
+            # count+=1
+            file_name = os.path.basename(f"{path}{i}/{j}")
+            # print(file_name)
+            digit, txt_name = get_last_digit(file_name)
+            digit = int(digit)
+            l_destination_path = f"{a}/{i}/{txt_name}"
+            for val in range(len(hash)):
+                if val == digit:
+                    ans = hash[val]
+                    break
+            f = open(l_destination_path, 'x')
+            frame_rate = scipy.io.wavfile.read(f"{path}{i}/{j}")
+            f_r = str(frame_rate[0])
+            f.write("sample_rate     start_time     end_time     sample_name")
+            f.write("\n")
+            f.write(f_r+      "          0               15             SIL")
+            f.write("\n")
+            f.write(f_r +     "          15             "+str(int(f_r)-15)+ "        "+str(ans))
+            f.write("\n")
+            f.write(f_r +   "          "+str(int(f_r)-15) + "          " +f_r+"          SIL")
+
+# transcrption()
