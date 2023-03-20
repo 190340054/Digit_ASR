@@ -1,1 +1,4 @@
-one
+start_time     end_time     sample_name
+0              500           SIL
+500            15000         one
+15000          16000         SIL

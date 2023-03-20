@@ -4,6 +4,7 @@ import librosa
 import soundfile as sf
 from rich.progress import track
 import eng_to_ipa as p
+from scipy.io import wavfile
 
 path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train'
 
@@ -90,7 +91,7 @@ def labeling():
     path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train/'
     os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/label")
     # flag = 0
-    for i in os.listdir(path):
+    for i in track(os.listdir(path)):
         # print("inside first loop")
         # if flag == 1:
         #     break
@@ -112,9 +113,17 @@ def labeling():
                     ans = hash[val]
                     break
             f = open(l_destination_path, 'x')
-            f.write(ans)
+            # sp = "     "
+            f.write("start_time     end_time     sample_name")
+            f.write("\n")
+            f.write("0              500           SIL")
+            f.write("\n")
+            f.write("500            15000         "+ans)
+            f.write("\n")
+            f.write("15000          16000         SIL")
+            # f.write(ans)
 
-# labeling()
+labeling()
 
 def get_file_name(string):
     return string.split('.')[0]
@@ -154,3 +163,8 @@ def lexicon():
     print(lis)
 
 # lexicon()
+# fs = wavfile.read("C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k/V01_F02_U_D/V01_F02_U1_D0.wav")
+# print(fs[0])
+# print(type(fs[0]))
+# print(type(str(fs[0])))
+# print(data)
