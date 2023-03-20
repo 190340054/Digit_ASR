@@ -2,11 +2,8 @@ import os
 from rich.progress import track
 import librosa
 import soundfile as sf
-<<<<<<< Updated upstream
 from rich.progress import track
-from phonemizer.backend import EspeakBackend
 import eng_to_ipa as p
-# import system as sys
 
 path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train'
 
@@ -50,34 +47,9 @@ def format(string):
     else:
         ans = var.upper() + '.' + ext
     return ans
-=======
-from pydub.utils import mediainfo
 
-def format(s):
-    var = s.split('.')[0]
-    ext = s.split('.')[1]
-    ext = '.' + ext
-    if var.isupper():
-        return s
-    else:
-        return var.upper() + ext
-
-# print(format('V_2_rn.wav'))
->>>>>>> Stashed changes
 
 def resample():
-    PATH = f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train"
-    for i in track(os.listdir(PATH)):
-        os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k/{i}")
-        for j in os.listdir(f"{PATH}/{i}/"):
-            file_path = f"{PATH}/{i}/{j}"
-            distination_path = f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k/{i}/{j}"
-            samples, sample_rate = librosa.load(file_path, sr = 20000)
-            samples = librosa.resample(samples, sample_rate,16000)
-            f = open(distination_path,"x")
-            sf.write(distination_path, samples, 16000)
-
-<<<<<<< Updated upstream
     path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train/'
     a = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k'
     os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train_16k")
@@ -182,9 +154,3 @@ def lexicon():
     print(lis)
 
 # lexicon()
-=======
-                #E:\Research\Data\train_8K
-
-
-# resample()
->>>>>>> Stashed changes
