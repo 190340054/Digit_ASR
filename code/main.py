@@ -4,6 +4,7 @@ import soundfile as sf
 from rich.progress import track
 from phonemizer.backend import EspeakBackend
 import eng_to_ipa as p
+# import system as sys
 
 path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train'
 
@@ -114,33 +115,43 @@ def labeling():
             f = open(l_destination_path, 'x')
             f.write(ans)
 
-labeling()
+# labeling()
 
-# def get_file_name(string):
-#     return string.split('.')[0]
+def get_file_name(string):
+    return string.split('.')[0]
 
 
-# def phonemes():
-#     path = 'C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/train/'
-#     os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/phonemes")
-#     flag = 0
-#     for i in os.listdir(path):
-#         if flag == 1:
-#             break
-#         flag += 1
-#     count = 0
-#     os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/phonemes/{i}")
-#     a = f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/phonemes"
-#     for j in os.listdir(f"{path}{i}/"):
-#         if count == 1:
-#             break
-#         count += 1
-#         file_name = os.path.basename(f"{path}{i}/{j}")
-#         phone_name = get_file_name(file_name)
-#         ans = labeling()
-#         phonemized = p.convert(ans)
-#         p_destination_path = f"{a}/{i}/{phone_name}"
-#         f = open(p_destination_path, 'x')
-#         f.write(phonemized)
-#
+def phonemes():
+    # sys.stdin.reconfigure(encoding='utf-8')
+    path = ('C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/label/')
+    os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/phonemes")
+    # flag = 0
+    for i in os.listdir(path):
+    #     if flag == 1:
+    #         break
+    #     flag += 1
+    # count = 0
+        os.mkdir(f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/phonemes/{i}")
+        a = f"C:/Users/siris/OneDrive/Desktop/Documents/GitHub/Digit_ASR/Source/KLEF_Digit_Data/KLEF_Digit_Data/phonemes"
+        for j in os.listdir(f"{path}{i}/"):
+            # if count == 1:
+            #     break
+            # count += 1
+            file_name = os.path.basename(f"{path}{i}/{j}")
+            phone_name = get_file_name(file_name)
+            phonemized = p.convert(open(f"{path}{i}/{j}", "r"))
+            # print(phonemized)
+            p_destination_path = f"{a}/{i}/{phone_name}"
+            f = open(p_destination_path, 'x', encoding="utf-8")
+            f.write(phonemized)
+
 # phonemes()
+
+def lexicon():
+    y = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    lis = []
+    for i in y:
+        lis.append(p.convert((i, "r")))
+    print(lis)
+
+# lexicon()
