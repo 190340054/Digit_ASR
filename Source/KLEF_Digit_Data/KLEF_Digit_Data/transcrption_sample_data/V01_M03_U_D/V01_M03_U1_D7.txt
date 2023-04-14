@@ -1,0 +1,4 @@
+sample_rate     time_period   start_time     end_time     sample_name
+16000           0.7620625       0                15        SIL
+16000           0.7620625       15             12178        seven
+16000           0.7620625      12178            12193         SIL

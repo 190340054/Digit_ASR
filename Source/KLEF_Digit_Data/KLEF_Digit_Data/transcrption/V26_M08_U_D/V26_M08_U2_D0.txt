@@ -1,4 +1,0 @@
-sample_rate     start_time     end_time     sample_name
-16000          0               15             SIL
-16000          15             15985        zero
-16000          15985          16000          SIL
